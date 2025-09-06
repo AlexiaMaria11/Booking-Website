@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.0.0",
@@ -16,7 +17,14 @@
     "@fortawesome/free-regular-svg-icons": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10",
     "react": "^18.3.1",
     "react-date-range": "^2.0.1",
     "react-dom": "^18.2.0",
@@ -30,6 +38,19 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "vite": "^7.0.6"
-  }
+    "vite": "^7.1.4"
+  },
+  "description": "",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexiaMaria11/Booking-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexiaMaria11/Booking-Website/issues"
+  },
+  "homepage": "https://github.com/AlexiaMaria11/Booking-Website#readme"
 }
