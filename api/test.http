@@ -44,10 +44,26 @@ Content-Type: application/json
 }
 
 ### Login user
-POST http://localhost:8800/api/auth/login
+# POST http://localhost:8800/api/auth/login
+# Content-Type: application/json
+
+# {
+#   "username": "john_bam",
+#   "password": "password123"
+# }
+
+###Update user
+GET  http://localhost:8800/api/users/checkauthentication
 Content-Type: application/json
 
 {
-  "username": "john_bam",
-  "password": "password123"
+  "username": "john_updated"
 }
+
+###Check user
+GET  http://localhost:8800/api/users/checkuser/68bc5fce3a723a315440c747
+Content-Type: application/json
+
+###Check admin
+GET  http://localhost:8800/api/users/checkadmin/68bc5fce3a723a315440c747
+Content-Type: application/json
