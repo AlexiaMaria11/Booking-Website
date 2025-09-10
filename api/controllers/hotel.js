@@ -45,9 +45,23 @@ export const getHotel = async (req, res, next) => {
 
 export const getHotels = async (req, res, next) => {
   try {
-    const hotels = await Hotel.find();
+    // const { limit, min = 1, max = 999, ...query } = req.query;
+    // const lim = parseInt(limit) || 50; // Default limit to 10 if not provided
+    // const hotels = await Hotel.find({
+    //     ...query,
+    //     cheapestPrice: { $gt: min, $lt: max }
+    // }).limit(lim);
+
+    // console.log(`Limit: ${lim}`);
+    // console.log('Hotels:', hotels.length);
+    const { limit, min, max, ...query } = req.query;
+    const lim = parseInt(limit) || 40;
+    const hotels = await Hotel.find({
+      ...query,
+    }).limit(lim);
     res.status(200).json(hotels);
   } catch (err) {
+    console.error("Error fetching hotels:", err);
     next(err);
   }
 };
@@ -59,6 +73,35 @@ export const countByCity = async (req, res, next) => {
       cities.map((city) => Hotel.countDocuments({ city }))
     );
     res.status(200).json(list);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const countByType = async (req, res, next) => {
+  try {
+    const counts = await Hotel.aggregate([
+      {
+        $group: {
+          _id: "$type",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const typeOrder = ["hotel", "apartment", "resort", "villa", "cabin"];
+
+    const countMap = counts.reduce((acc, item) => {
+      acc[item._id.toLowerCase()] = item.count;
+      return acc;
+    }, {});
+
+    const formattedCounts = typeOrder.map((type) => ({
+      type: type,
+      count: countMap[type] || 0,
+    }));
+
+    res.status(200).json(formattedCounts);
   } catch (err) {
     next(err);
   }

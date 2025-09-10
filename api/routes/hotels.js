@@ -3,6 +3,7 @@ import Hotel from "../models/Hotel.js";
 import { createError } from "../utils/error.js";
 import {
   countByCity,
+  countByType,
   createHotel,
   deleteHotel,
   getHotel,
@@ -20,6 +21,7 @@ router.post("/", verifyAdmin, createHotel);
 router.get("/", getHotels);
 
 router.get("/countByCity", countByCity);
+router.get("/countByType", countByType);
 
 // UPDATE
 router.put("/:id", verifyAdmin, updateHotel);

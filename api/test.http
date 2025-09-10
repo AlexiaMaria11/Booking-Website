@@ -3,9 +3,9 @@ POST http://localhost:8800/api/hotels
 Content-Type: application/json
 
 {
-  "name": "Hotel California",
-  "type": "Hotel",
-  "city": "New York",
+  "name": "Hotel Luxi",
+  "type": "hotel",
+  "city": "Los Angeles",
   "address": "123 Sunset Blvd",
   "distance": "2km",
   "title": "Best hotel",
@@ -89,4 +89,8 @@ Content-Type: application/json
 
 ### Count by City
 GET http://localhost:8800/api/hotels/countByCity?cities=Los Angeles,New York,Chicago
+Content-Type: application/json
+
+### Count by Type
+GET http://localhost:8800/api/hotels/countByType
 Content-Type: application/json
