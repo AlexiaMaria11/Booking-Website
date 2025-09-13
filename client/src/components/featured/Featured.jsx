@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch.js";
 const Featured = () => {
   const cities = ["Los Angeles", "New York", "Chicago"];
   const { data, loading, error } = useFetch(
-    `/api/hotels/countByCity?cities=${cities[0]},${cities[1]},${cities[2]}`
+    `api/hotels/countByCity?cities=${cities[0]},${cities[1]},${cities[2]}`
   );
   return (
     <div className="featured">

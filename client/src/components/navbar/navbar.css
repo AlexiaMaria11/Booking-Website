@@ -1,8 +1,10 @@
 .navbar {
   height: 50px;
+  width: 100%;
   background-color: #080942;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .navContainer {
@@ -11,17 +13,37 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
+
+.profile {
+  /* color: rgb(0, 0, 0); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: capitalize;
+  width: 200px;
 }
 
 .logo {
   font-weight: 500;
+  color: white;
+}
+
+.navItems {
+  display: flex;
 }
 
 .navButton {
   margin-left: 20px;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 15px;
   cursor: pointer;
-  color: #1a1831;
+  color: #05062e;
+  border-radius: 3px;
+  display: flex;
+  place-items: center;
+  gap: 3px;
 }

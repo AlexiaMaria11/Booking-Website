@@ -3,7 +3,7 @@ import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
   const { data, loading, error } = useFetch(
-    "/api/hotels?featured=true&limit=4"
+    `/api/hotels?featured=true&limit=4`
   );
 
   const images = [

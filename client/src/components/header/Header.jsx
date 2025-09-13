@@ -1,5 +1,5 @@
 import "./header.css";
-import { Children, useState } from "react";
+import { Children } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
@@ -10,10 +10,13 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from "react-date-range";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext.jsx";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext.jsx";
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -35,6 +38,8 @@ const Header = ({ type }) => {
 
   const navigate = useNavigate();
 
+  const { dispatch } = useContext(SearchContext);
+
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -45,8 +50,11 @@ const Header = ({ type }) => {
   };
 
   const handleSearch = () => {
+    dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
     navigate("/hotels", { state: { destination, date, options } });
   };
+
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="header">
@@ -85,8 +93,7 @@ const Header = ({ type }) => {
               Search deals on hotels, homes, and much more… from budget to
               luxury — wherever you go!
             </p>
-            <button className="headerBtn">Sign in / Register</button>
-
+            {!user && <button className="headerBtn">Sign in / Register</button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />

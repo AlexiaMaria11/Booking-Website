@@ -3,146 +3,99 @@ import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../context/SearchContext.jsx";
+// import Modal from "../../components/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleArrowLeft,
-  faCircleArrowRight,
-  faLocationDot,
-  faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const Hotel = () => {
-  const [slideNumber, setSlideNumber] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const { id } = useParams();
+  const { data, loading, error } = useFetch(`/api/hotels/${id}`); //find
 
-  const photos = [
-    {
-      src: "/images/apartment.jpg",
-    },
-    {
-      src: "/images/cabin.jpg",
-    },
-    {
-      src: "/images/apartment.jpg",
-    },
-    {
-      src: "/images/cabin.jpg",
-    },
-    {
-      src: "/images/apartment.jpg",
-    },
-    {
-      src: "/images/cabin.jpg",
-    },
-  ];
+  const { date, options } = useContext(SearchContext);
 
-  const handleOpen = (i) => {
-    setSlideNumber(i);
-    setOpen(true);
+  const calcTotalDate = (startDate, endDate) => {
+    if (!startDate || !endDate) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffInMilliseconds = end - start;
+    return Math.max(1, Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24)));
   };
 
-  const handleMove = (direction) => {
-    let newSlideNumber;
-    if (direction === "l") {
-      newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
-    } else {
-      newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
-    }
+  const diff = calcTotalDate(date[0]?.startDate, date[0]?.endDate);
 
-    setSlideNumber(newSlideNumber);
+  const handleModel = () => {
+    setModalOpen(true);
   };
 
   return (
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
-        {open && (
-          <div className="slider">
-            <FontAwesomeIcon
-              icon={faCircleXmark}
-              className="close"
-              onClick={() => setOpen(false)}
-            />
-            <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove("l")}
-            />
-            <div className="sliderWrapper">
-              <img src={photos[slideNumber].src} alt="" className="sliderImg" />
+      {loading ? (
+        <p>Loading hotel data...</p>
+      ) : error ? (
+        <p>Failed to load hotel information. Please try again later.</p>
+      ) : (
+        <div className="hotelContainer">
+          <div className="hotelWrapper">
+            <button className="bookNow" onClick={handleModel}>
+              Reserve or Book Now!
+            </button>
+            <h1 className="hotelTitle" style={{ textTransform: "capitalize" }}>
+              {data.name}
+            </h1>
+            <div className="hotelAddress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.address}</span>
             </div>
-            <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove("r")}
-            />
-          </div>
-        )}
-        <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book now!</button>
-          <h1 className="hotelTitle">Grand Hotel</h1>
-          <div className="hotelAdress">
-            <FontAwesomeIcon icon={faLocationDot} />
-            <span>Elton St 125 New York</span>
-          </div>
-          <span className="hotelDistance">
-            Excellent location - 500m from center
-          </span>
-          <span className="hotelPriceHighlight">
-            Book a stay over $114 at this property and get a free airport taxi
-          </span>
-          <div className="hotelImages">
-            {photos.map((photo, i) => (
-              <div className="hotelImgWrapper">
-                <img
-                  onClick={() => handleOpen(i)}
-                  src={photo.src}
-                  alt=""
-                  className="hotelImg"
-                />
+            <span className="hotelDistance">{data.distance}</span>
+            <span className="hotelPriceHighlight">
+              Book a stay over ${data.cheapestPrice} at this property and get a
+              free airport taxi
+            </span>
+            <div className="hotelImgWrapper">
+              {data.photos && data.photos.length > 0 ? (
+                data.photos.map((photo, index) => (
+                  <img
+                    key={index}
+                    src={photo}
+                    width="300px"
+                    alt={`Hotel ${index + 1}`}
+                  />
+                ))
+              ) : (
+                <p>No images available</p>
+              )}
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1 className="hotelTitle">{data.title}</h1>
+                <p className="hotelDesc">{data.desc}</p>
               </div>
-            ))}
-          </div>
-          <div className="hotelDetails">
-            <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the hearth of Krakow</h1>
-              <p className="hotelDesc">
-                Located a 5-minute walk from St. Florian's Gate in Krakow, Grand
-                Hotel offers elegant accommodations with a restaurant, private
-                parking, a fitness center, and a stylish bar. This 5-star
-                property combines historic charm with modern comforts, featuring
-                spacious rooms with classic décor, premium bedding, and city
-                views. Guests can enjoy a rich buffet breakfast each morning and
-                savor Polish and international cuisine in the on-site
-                restaurant. For relaxation, the hotel provides a wellness area
-                with a sauna and fitness facilities. The Grand Hotel also offers
-                a 24-hour front desk, concierge services, and a tour desk to
-                help you plan your stay in Krakow. Airport transfers and room
-                service are available upon request, and free WiFi is accessible
-                throughout the property. With its central location, just steps
-                away from the Main Market Square, Wawel Castle, and numerous
-                shops and cafés, the hotel is an ideal choice for travelers
-                interested in culture, history, and city walks.
-              </p>
-            </div>
-            <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
-              <span>
-                Located in the real hearth of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2>
-                <b>$945</b> (9 nights)
-              </h2>
-              <button>Reserve or Book now!</button>
+              <div className="hotelDetailsPrice">
+                <h1>Perfect for a {diff}-night stay!</h1>
+                <span>
+                  Located in the real heart of Krakow, this property has an
+                  excellent location score of 9.8!
+                </span>
+                <h2>
+                  <b>${diff * data.cheapestPrice * options.room}</b> ({diff}{" "}
+                  nights)
+                </h2>
+                <button onClick={handleModel}>Reserve or Book Now!</button>
+              </div>
+              {modalOpen && <Modal setModalOpen={setModalOpen} id={id} />}
             </div>
           </div>
         </div>
-        <MailList />
-        <Footer />
-      </div>
+      )}
+      <MailList />
+      <Footer />
     </div>
   );
 };
