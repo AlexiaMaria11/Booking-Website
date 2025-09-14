@@ -73,7 +73,7 @@ POST http://localhost:8800/api/rooms/68bc5109bd8a9d1d51060068
 Content-Type: application/json
 
 {
-  "title": "Deluxe Room",
+  "title": "Deluxe 3 Room",
   "price": 150,
   "maxPeople": 2,
   "desc": "A spacious room with a beautiful view.",

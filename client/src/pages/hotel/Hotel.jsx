@@ -7,9 +7,10 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext.jsx";
-// import Modal from "../../components/Modal/Modal";
+import Modal from "../../components/reserve/Reserve";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
 const Hotel = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,6 +18,7 @@ const Hotel = () => {
   const { data, loading, error } = useFetch(`/api/hotels/${id}`); //find
 
   const { date, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
 
   const calcTotalDate = (startDate, endDate) => {
     if (!startDate || !endDate) return 0;

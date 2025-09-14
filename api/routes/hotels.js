@@ -7,6 +7,7 @@ import {
   createHotel,
   deleteHotel,
   getHotel,
+  getHotelRooms,
   getHotels,
   updateHotel,
 } from "../controllers/hotel.js";
@@ -19,9 +20,9 @@ router.post("/", verifyAdmin, createHotel);
 
 // GET ALL
 router.get("/", getHotels);
-
 router.get("/countByCity", countByCity);
 router.get("/countByType", countByType);
+router.get("/room/:id", getHotelRooms);
 
 // UPDATE
 router.put("/:id", verifyAdmin, updateHotel);
