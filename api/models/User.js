@@ -17,6 +17,21 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    country: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: Number,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
     isAdmin: {
       type: Boolean,
       default: false,

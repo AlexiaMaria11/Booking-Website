@@ -23,7 +23,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const response = await axios.post(`/api/auth/login`, credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
+      dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
       navigate("/");
     } catch (error) {
       console.error("Login error:", error);
