@@ -1,4 +1,4 @@
-# 🏨 Full-Stack Hotel Booking System
+#  Full-Stack Hotel Booking System
 
 [![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/) 
 [![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://reactjs.org/) 
@@ -8,18 +8,18 @@ A **full-stack hotel booking application** built with the MERN stack (MongoDB, E
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🔐 **User Authentication** – Secure login and registration with JWT and encrypted passwords  
-- 🏨 **Browse Hotels** – Search hotels and filter by location, price, etc.  
-- 📅 **Booking System** – Book rooms with real-time availability checks  
-- 👤 **User Dashboard** – View and manage bookings  
-- 🛠 **Admin Dashboard** – Manage hotels, rooms, and bookings  
-- 📱 **Responsive UI** – Optimized for both desktop and mobile  
+-  **User Authentication** – Secure login and registration with JWT and encrypted passwords  
+-  **Browse Hotels** – Search hotels and filter by location, price, etc.  
+-  **Booking System** – Book rooms with real-time availability checks  
+-  **User Dashboard** – View and manage bookings  
+-  **Admin Dashboard** – Manage hotels, rooms, and bookings  
+-  **Responsive UI** – Optimized for both desktop and mobile  
 
 ---
 
-## 🛠 Technologies Used
+##  Technologies Used
 
 - **Frontend:** React, CSS, Bootstrap (or other CSS frameworks)  
 - **Backend:** Node.js, Express  
